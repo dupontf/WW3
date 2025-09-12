@@ -934,6 +934,11 @@ CONTAINS
         ID_NB_SND = ID_NB_SND +1
         SND(ID_NB_SND)%CL_FIELD_NAME='WW3__T01'
         !
+      CASE('TP0')
+        ! peak wave period (s)
+        ID_NB_SND = ID_NB_SND +1
+        SND(ID_NB_SND)%CL_FIELD_NAME='WW3__TP0'
+        !
       CASE('DIR')
         ! THM / wave_thm : cosinus of mean direction (n/a)
         ID_NB_SND = ID_NB_SND +1

@@ -113,7 +113,7 @@ CONTAINS
     USE W3ADATMD,  ONLY: HS, T0M1, T01, THM, BHD, TAUOX, TAUOY, PHIOC,&
          UBA, UBD, TAUWIX, TAUWIY, TUSX, TUSY, USSX,  &
          USSY, WLM, PHIBBL,TAUBBL, CHARN, TAUOCX,     &
-         TAUOCY, WNMEAN
+         TAUOCY, WNMEAN, FP0
     USE W3ODATMD,  ONLY: NAPROC, IAPROC, UNDEF
     USE CONSTANTS, ONLY: PI, DERA
     !
@@ -167,6 +167,15 @@ CONTAINS
       IF (SND_FLD(IB_DO)%CL_FIELD_NAME == 'WW3__T01') THEN
         TMP(1:NSEAL) = 0.0
         WHERE(T01(1:NSEAL) /= UNDEF) TMP(1:NSEAL)=T01(1:NSEAL)
+        RLA_OASIS_SND(:,1) = DBLE(TMP(1:NSEAL))
+        CALL CPL_OASIS_SND(IB_DO, ID_OASIS_TIME, RLA_OASIS_SND, LL_ACTION)
+      ENDIF
+      !
+      ! Peak wave period (tmn in s)
+      ! ---------------------------------------------------------------------
+      IF (SND_FLD(IB_DO)%CL_FIELD_NAME == 'WW3__TP0') THEN
+        TMP(1:NSEAL) = 0.0
+        WHERE(FP0(1:NSEAL) /= UNDEF .AND. FP0(1:NSEAL) /= 0.) TMP(1:NSEAL)=1./FP0(1:NSEAL)
         RLA_OASIS_SND(:,1) = DBLE(TMP(1:NSEAL))
         CALL CPL_OASIS_SND(IB_DO, ID_OASIS_TIME, RLA_OASIS_SND, LL_ACTION)
       ENDIF
